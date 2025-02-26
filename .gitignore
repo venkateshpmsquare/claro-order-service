@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.vs/
+.vscode/
+
+# Environment variables
+.env
+secrets.json
+
+# Logs
+logs/
+*.log
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Ignore Docker build artifacts
+.dockerignore
+docker-compose.override.yml
