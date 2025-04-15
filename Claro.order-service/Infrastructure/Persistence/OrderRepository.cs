@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace Claro.OrderService.Infrastructure.Persistence
 {
     public class OrderRepository : IOrderRepository
@@ -16,8 +17,10 @@ namespace Claro.OrderService.Infrastructure.Persistence
             _context = context;
         }
 
-        public async Task<Order> GetOrderByIdAsync(Guid id)
+        public async Task<Order> GetOrderByIdAsync(int id)
         {
+            //var query = "SELECT Id, CustomerId, TotalAmount, Status FROM Orders WHERE Id = @OrderId";
+            //return await _context.QueryFirstOrDefaultAsync<Order>(query, new { id });
             return await _context.Orders.FindAsync(id);
         }
 
@@ -38,7 +41,7 @@ namespace Claro.OrderService.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteOrderAsync(Guid id)
+        public async Task DeleteOrderAsync(int id)
         {
             var order = await _context.Orders.FindAsync(id);
             if (order != null)

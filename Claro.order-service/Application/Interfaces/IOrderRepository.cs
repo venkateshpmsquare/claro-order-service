@@ -7,10 +7,10 @@ namespace Claro.OrderService.Application.Interfaces
 {
     public interface IOrderRepository
     {
-        Task<Order> GetOrderByIdAsync(Guid id);
+        Task<Order> GetOrderByIdAsync(int id);
         Task<List<Order>> GetAllOrdersAsync();
         Task AddOrderAsync(Order order);
         Task UpdateOrderAsync(Order order);
-        Task DeleteOrderAsync(Guid id);
+        Task DeleteOrderAsync(int id);
     }
 }
