@@ -1,7 +1,10 @@
+using Claro.order_service.Application.Interfaces;
+using Claro.order_service.Application.services;
 using Claro.OrderService.Application.Interfaces;
 using Claro.OrderService.Infrastructure.Persistence;
 using Hangfire;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -10,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add Controllers
 builder.Services.AddControllers();
+
+builder.Services.AddSwaggerGen();
 
 // Register MediatR
 builder.Services.AddMediatR(typeof(Program));
@@ -34,13 +39,17 @@ builder.Services.AddHangfireServer();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+//builder.Services.AddOpenApi();
 
 
 // Register Repository
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 app.MapControllers();
@@ -49,7 +58,7 @@ app.UseHangfireDashboard();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+   // app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
